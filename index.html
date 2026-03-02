@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .cards{
+        display: flex;
+        flex-direction: column;
+    }
+    .cards h4{
+        margin: 0%;
+    }
+    .boxes{
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 20px;
+    }
+</style>
+<body>
+    <h1>Dogs</h1>
+    <div class="boxes">
+        <div class="cards"></div>
+    </div>
+</body>
+<script>
+    const URL = `https://api.thedogapi.com/v1/images/search`;
+    const cards = document.querySelector(".cards");
+
+    async function add(){
+       const promise = await fetch(URL);
+       const data = await promise.json(); 
+       console.log(data);
+
+       cards.innerHTML = `
+        <img src="${data[0].url}" alt="" width="250px">
+        <h4>Height: ${data[0].height}</h4>
+        <h4>Width: ${data[0].width}</h4>
+        <h4>ID: ${data[0].id}</h4>
+        `;
+    }
+    add();
+</script>
+</html>
